@@ -25,7 +25,24 @@ const createJob = async (
 
     return result.rows[0];
 };
+   const getAllJobs = async () => {
+    const result = await pool.query(
+        `SELECT * FROM jobs ORDER BY created_at DESC`
+    );
+
+    return result.rows;
+};
+const getJobById = async (id) => {
+    const result = await pool.query(
+        `SELECT * FROM jobs WHERE id = $1`,
+        [id]
+    );
+
+    return result.rows[0];
+};
 
 module.exports = {
     createJob,
+    getAllJobs,
+    getJobById,
 };
